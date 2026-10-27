@@ -133,6 +133,27 @@ p {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
 }
 
+/* Subtle Scroll Progress Indicator */
+.scroll-progress-track {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2.5px;
+  background-color: transparent;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.scroll-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--color-accent) 0%, #3b82f6 100%);
+  border-radius: 0 1px 1px 0;
+  will-change: width;
+  transition: width 0.08s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 .nav-inner {
   display: flex;
   align-items: center;
@@ -1304,7 +1325,191 @@ p {
 }
 
 /* ==========================================================================
-   9. QUIET, PRESTIGIOUS FOOTER
+   9. SOVEREIGN BRIEFING (High-Contrast Minimal Lead Capture)
+   ========================================================================== */
+.briefing-section {
+  background-color: var(--color-canvas);
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+.briefing-box {
+  background-color: #0b0f19;
+  border: 1px solid #1e293b;
+  border-radius: 8px;
+  padding: 4rem 3.5rem;
+  color: #ffffff;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 4rem;
+  align-items: center;
+  box-shadow: 0 25px 50px -12px rgba(11, 15, 25, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.briefing-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, rgba(29, 78, 216, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.briefing-kicker {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #60a5fa;
+  margin-bottom: 1rem;
+}
+
+.briefing-title {
+  font-size: clamp(2rem, 3.2vw, 2.75rem);
+  color: #ffffff;
+  margin-bottom: 1rem;
+  letter-spacing: -0.03em;
+}
+
+.briefing-desc {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: #94a3b8;
+  max-width: 32rem;
+  margin-bottom: 1.75rem;
+}
+
+.briefing-meta-note {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+  color: #64748b;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.briefing-meta-note .sep {
+  color: #334155;
+}
+
+/* Briefing Form */
+.briefing-form {
+  position: relative;
+  z-index: 2;
+}
+
+.briefing-form-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.briefing-input {
+  flex-grow: 1;
+  padding: 0.95rem 1.25rem;
+  font-size: 0.9375rem;
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 4px;
+  transition: var(--transition-smooth);
+}
+
+.briefing-input::placeholder {
+  color: #64748b;
+}
+
+.briefing-input:focus {
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.briefing-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.95rem 1.6rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #0b0f19;
+  background-color: #ffffff;
+  border: 1px solid #ffffff;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: var(--transition-smooth);
+}
+
+.briefing-submit-btn:hover {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* Role Selector Radios */
+.briefing-options {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.briefing-radio-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  color: #94a3b8;
+  cursor: pointer;
+}
+
+.briefing-radio-label input[type="radio"] {
+  accent-color: #3b82f6;
+  cursor: pointer;
+}
+
+.briefing-radio-label span {
+  transition: color 0.15s ease;
+}
+
+.briefing-radio-label:hover span {
+  color: #ffffff;
+}
+
+/* Feedback Notifications */
+.briefing-feedback {
+  font-size: 0.8125rem;
+  min-height: 1.5rem;
+  transition: var(--transition-smooth);
+}
+
+.briefing-feedback.success {
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.1);
+  padding: 0.6rem 0.85rem;
+  border-radius: 4px;
+  border: 1px solid rgba(74, 222, 128, 0.2);
+}
+
+.briefing-feedback.error {
+  color: #f87171;
+  background: rgba(248, 113, 113, 0.1);
+  padding: 0.6rem 0.85rem;
+  border-radius: 4px;
+  border: 1px solid rgba(248, 113, 113, 0.2);
+}
+
+/* ==========================================================================
+   10. QUIET, PRESTIGIOUS FOOTER
    ========================================================================== */
 .site-footer {
   background-color: var(--color-canvas);
@@ -1419,6 +1624,12 @@ p {
     gap: 2.5rem;
   }
 
+  .briefing-box {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding: 3rem 2.5rem;
+  }
+
   .footer-top {
     grid-template-columns: 1fr 1fr;
   }
@@ -1465,6 +1676,19 @@ p {
 
   .engine-card {
     padding: 2rem 1.5rem;
+  }
+
+  .briefing-box {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .briefing-form-row {
+    flex-direction: column;
+  }
+
+  .briefing-options {
+    flex-direction: column;
+    gap: 0.75rem;
   }
 
   .footer-top {

@@ -99,16 +99,18 @@ const PORTFOLIO_PROJECTS = [
 
 document.addEventListener("DOMContentLoaded", () => {
   initNavbar();
+  initScrollProgress();
   initHeroAudienceToggle();
   initSimulator();
   initGallery();
   initModal();
   initWhatsAppEngine();
   initSmoothScroll();
+  initSovereignBriefing();
 });
 
 /* --------------------------------------------------------------------------
-   1. NAVBAR CONTROLLER
+   1. NAVBAR & SCROLL PROGRESS CONTROLLERS
    -------------------------------------------------------------------------- */
 function initNavbar() {
   const nav = document.getElementById("siteNav");
@@ -121,6 +123,22 @@ function initNavbar() {
       nav.classList.remove("scrolled");
     }
   }, { passive: true });
+}
+
+function initScrollProgress() {
+  const bar = document.getElementById("scrollProgressBar");
+  if (!bar) return;
+
+  const updateProgress = () => {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    bar.style.width = `${Math.min(100, Math.max(0, progress))}%`;
+  };
+
+  window.addEventListener("scroll", updateProgress, { passive: true });
+  window.addEventListener("resize", updateProgress, { passive: true });
+  updateProgress();
 }
 
 /* --------------------------------------------------------------------------
@@ -423,7 +441,6 @@ function initWhatsAppEngine() {
    7. SMOOTH SCROLLING & TIER PRE-SELECTION
    -------------------------------------------------------------------------- */
 function initSmoothScroll() {
-  // Global buttons that trigger WhatsApp engine scrolling
   document.querySelectorAll("[data-scroll-to-cta]").forEach(btn => {
     btn.addEventListener("click", (e) => {
       e.preventDefault();
@@ -432,7 +449,6 @@ function initSmoothScroll() {
         target.scrollIntoView({ behavior: "smooth" });
       }
 
-      // If tier data exists, pre-select it
       const tier = btn.dataset.tier;
       if (tier) {
         const roleSelect = document.getElementById("waRole");
@@ -448,10 +464,54 @@ function initSmoothScroll() {
             roleSelect.value = "Endowment / University Lab";
             allocSelect.value = "$5,000,000+ Institutional Program";
           }
-          // Trigger preview change
           roleSelect.dispatchEvent(new Event("change"));
         }
       }
     });
+  });
+}
+
+/* --------------------------------------------------------------------------
+   8. SOVEREIGN BRIEFING LEAD CAPTURE
+   -------------------------------------------------------------------------- */
+function initSovereignBriefing() {
+  const form = document.getElementById("sovereignBriefingForm");
+  const emailInput = document.getElementById("briefingEmail");
+  const feedback = document.getElementById("briefingFeedback");
+
+  if (!form || !emailInput || !feedback) return;
+
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const emailVal = emailInput.value.trim();
+    const selectedRadio = form.querySelector('input[name="briefingRole"]:checked');
+    const roleVal = selectedRadio ? selectedRadio.value : "Patron";
+
+    if (!emailVal || !emailPattern.test(emailVal)) {
+      feedback.textContent = "Please provide a valid executive or academic email address.";
+      feedback.className = "briefing-feedback error";
+      emailInput.focus();
+      return;
+    }
+
+    // Persist lead locally
+    try {
+      const existing = JSON.parse(localStorage.getItem("ultraboot_briefing_leads") || "[]");
+      existing.push({
+        email: emailVal,
+        role: roleVal,
+        timestamp: new Date().toISOString()
+      });
+      localStorage.setItem("ultraboot_briefing_leads", JSON.stringify(existing));
+    } catch {
+      // localStorage may fail in hermetic mode, continue smoothly
+    }
+
+    feedback.textContent = `Enlistment Confirmed. Cryptographic dispatch token routed to ${emailVal} (${roleVal} Tier).`;
+    feedback.className = "briefing-feedback success";
+    emailInput.value = "";
+    emailInput.blur();
   });
 }

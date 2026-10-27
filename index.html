@@ -59,6 +59,11 @@
 
         </div>
       </div>
+
+      <!-- Subtle Scroll Progress Indicator -->
+      <div class="scroll-progress-track" aria-hidden="true">
+        <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+      </div>
     </header>
 
 
@@ -665,7 +670,66 @@
 
 
     <!-- =====================================================================
-         9. QUIET, PRESTIGIOUS FOOTER
+         9. SOVEREIGN BRIEFING (High-Contrast Minimal Lead Capture)
+         ===================================================================== -->
+    <section class="briefing-section hairline-top" id="briefing">
+      <div class="container">
+        
+        <div class="briefing-box">
+          <div class="briefing-content">
+            <span class="briefing-kicker">Dispatches & Intelligence</span>
+            <h2 class="briefing-title">The Sovereign Briefing.</h2>
+            <p class="briefing-desc">
+              Confidential quarterly memoranda examining emerging student-engineered HPC architectures, hardware allocation benchmarks, and direct private syndication terms.
+            </p>
+            <div class="briefing-meta-note">
+              <span>Quarterly distribution</span>
+              <span class="sep">/</span>
+              <span>Encrypted dispatch</span>
+              <span class="sep">/</span>
+              <span>Zero promotional noise</span>
+            </div>
+          </div>
+
+          <div class="briefing-action-col">
+            <form id="sovereignBriefingForm" class="briefing-form" novalidate>
+              <div class="briefing-form-row">
+                <input 
+                  type="email" 
+                  id="briefingEmail" 
+                  class="briefing-input" 
+                  placeholder="Enter executive or academic email..." 
+                  aria-label="Executive or academic email address"
+                  required
+                />
+                <button type="submit" class="briefing-submit-btn">
+                  <span>Enlist in Briefing</span>
+                  <span>→</span>
+                </button>
+              </div>
+
+              <div class="briefing-options">
+                <label class="briefing-radio-label">
+                  <input type="radio" name="briefingRole" value="Patron" checked>
+                  <span>Patron / Family Office</span>
+                </label>
+                <label class="briefing-radio-label">
+                  <input type="radio" name="briefingRole" value="Scholar">
+                  <span>Scholar / Researcher</span>
+                </label>
+              </div>
+
+              <div id="briefingFeedback" class="briefing-feedback" aria-live="polite"></div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =====================================================================
+         10. QUIET, PRESTIGIOUS FOOTER
          ===================================================================== -->
     <footer class="site-footer hairline-top">
       <div class="container">
