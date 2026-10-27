@@ -1,0 +1,6 @@
+{
+  "name": "Ultraboot — Executive SaaS & Academic Synergy Platform",
+  "description": "An avant-garde, minimalist SaaS platform connecting elite student founders with high-net-worth capital and compute infrastructure.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
